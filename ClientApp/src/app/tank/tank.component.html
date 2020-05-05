@@ -1,2 +1,5 @@
-<app-fish></app-fish>
-<p>Test tank</p>
+<div class="tank" (click)="baitFish($event)">
+    <app-fish [top_pos]="200" [left_pos]="200" [events]="eventsSubject.asObservable()"></app-fish>
+    <app-fish [top_pos]="300" [left_pos]="300" [events]="eventsSubject.asObservable()"></app-fish>
+    <app-fish [top_pos]="400" [left_pos]="400" [events]="eventsSubject.asObservable()"></app-fish>
+</div>
