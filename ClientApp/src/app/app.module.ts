@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { FishComponent } from './fish/fish.component';
 import { TankComponent } from './tank/tank.component';
+import { FishFoodComponent } from './fish-food/fish-food.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TankComponent } from './tank/tank.component';
     CounterComponent,
     FetchDataComponent,
     FishComponent,
-    TankComponent
+    TankComponent,
+    FishFoodComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

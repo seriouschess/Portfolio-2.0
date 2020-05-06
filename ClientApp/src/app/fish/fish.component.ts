@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
-import { inflate } from 'zlib';
 
 @Component({
   selector: 'app-fish',
@@ -13,17 +12,24 @@ export class FishComponent implements OnInit {
 
   @Input() left_pos: number;
   @Input() top_pos: number;
+  idle_depth:number;
   direction: number;
-  frame_count: number; //frame leek issue??
+  frame_count: number; //memory leek issue??
   oscilation: number;
   width:number;
+  height:number;
+  size:number;
   turn: boolean; //will the fish turn?
+
   speed:number;
+  vigorous_speed:number; //how fast the fish goes when motivated
 
   //related to feeding
   has_target: boolean;
   @Input() target_top: number;
   @Input() target_left: number;
+  @Input() tank_width: number;
+  @Output() gotFood = new EventEmitter<boolean>();
   //color_var: string;
 
   private eventsSubscription: Subscription;
@@ -31,16 +37,17 @@ export class FishComponent implements OnInit {
   @Input() events: Observable<number[]>;
 
   ngOnInit() {
+    this.idle_depth = this.left_pos; //this is the depth that an idle fish will travel to
+    this.speed = Math.random()*2+2;
+    this.vigorous_speed = Math.random()*3+5;
     this.has_target = false;
     this.target_top = 0;
     this.target_left = 0;
-    this.width = 100;
+    this.determineSize();
     this.oscilation = 0;
     this.frame_count = 0;
     this.direction = 1;
-    this.speed = 3;
     this.turn = false;
-    //this.color_var = `rgb(${0},${0},${0})`;
     this.eventsSubscription = this.events.subscribe((f_loc:number[]) => this.seeFood(f_loc));
     this.update();
   }
@@ -49,48 +56,90 @@ export class FishComponent implements OnInit {
     this.eventsSubscription.unsubscribe();
   }
 
+  determineSize(){
+    let size:number;
+
+    if(this.tank_width > 1079){
+      size = 80 + Math.floor(Math.random()*40);
+    }else if( this.tank_width > 599 ){
+      size = 60 + Math.floor(Math.random()*30);
+    }else{
+      size = 40 + Math.floor(Math.random()*20);
+    }
+
+    this.size = size;
+    this.width = size;
+    this.height = size;
+  }
+
   seeFood(f_loc){
-    console.log("food!");
     this.target_top = f_loc[1];
     this.target_left = f_loc[0];
-    console.log(this.target_top +" "+this.target_left);
     this.has_target = true;
-    this.speed = 6;
+  }
+
+  targetDistance(x1:number, y1:number, x2:number, y2:number){
+    return Math.sqrt(Math.pow(x1-x2,2) + Math.pow(y1 - y2, 2));
+  }
+
+  moveToTarget(){
+    if( this.left_pos > this.target_left && this.direction == 1){
+      this.turn = true;
+    }else if( this.left_pos < this.target_left && this.direction == -1 ){
+      this.turn = true;
+    }
+
+    if( this.top_pos > this.target_top ){
+      this.top_pos -= this.speed;
+    }
+    
+    if( this.top_pos < this.target_top ){
+      this.top_pos += this.speed;
+    }
+  }
+
+  idleMotion(){
+    if( this.left_pos > this.tank_width - this.size*1.2 && this.direction == 1){
+      this.turn = true;
+    }else if( this.left_pos < this.size*0.6 && this.direction == -1 ){
+      this.turn = true;
+    }
+
+    if( this.top_pos < this.idle_depth - 10){
+      this.top_pos += this.speed/4;
+    }else if(this.top_pos > this.idle_depth + 10){
+      this.top_pos -= this.speed/4;
+    }
+  }
+
+  moveFish(vigorous_bool:boolean){
+    if(vigorous_bool){
+      this.left_pos += this.vigorous_speed*this.direction;
+      this.oscilation = 10*Math.sin(0.03*this.vigorous_speed*this.frame_count);
+    }else{
+      this.left_pos += this.speed*this.direction;
+      this.oscilation = 10*Math.sin(0.03*this.speed*this.frame_count);
+    }
+    this.turnFish();
   }
 
   update(){
     setInterval(() => {
-      // let r =  Math.floor((Math.random() * 256));
-      // let g =  Math.floor((Math.random() * 256));
-      // let b =  Math.floor((Math.random() * 256));
-      // this.color_var =  `rgb(${r},${g},${b})`;
-
       this.frame_count += 1;
-      if( this.has_target ){
-        if( this.left_pos > this.target_left && this.direction == 1){
-          this.turn = true;
-        }else if( this.left_pos < this.target_left && this.direction == -1 ){
-          this.turn = true;
-        }
+      if( this.has_target ){ //fish sees food
+       this.moveToTarget();
+       this.moveFish(true);
+       let dist:number = this.targetDistance(this.left_pos, this.top_pos, this.target_left, this.target_top);
+       if(dist < 30){
+        this.gotFood.emit(true);
+        this.has_target = false;
+       }
 
-        if( this.top_pos > this.target_top + this.speed ){
-          this.top_pos -= this.speed;
-        }
-        
-        if( this.top_pos < this.target_top - this.speed ){
-          this.top_pos += this.speed;
-        }
-      }else{
-        if( this.left_pos > 800 && this.direction == 1){
-          this.turn = true;
-        }else if( this.left_pos < 300 && this.direction == -1 ){
-          this.turn = true;
-        }
+      }else{ //default movement state
+        this.idleMotion();
+        this.moveFish(false);
       }
-
-      this.left_pos += this.speed*this.direction;
-      this.oscilation = 10*Math.sin(0.03*this.speed*this.frame_count);
-      this.turnFish();
+      
     },30);
   }
 
@@ -104,21 +153,21 @@ export class FishComponent implements OnInit {
       this.turn = false;
     }
 
-    if(this.width < 100 && this.turn == false){ //finish turn
+    if(this.width < this.size && this.turn == false){ //finish turn
       this.width += 10;
-      if(this.width > 100){
-        this.width = 100;
+      if(this.width > this.size){
+        this.width = this.size;
       }
     }
   }
 
   updateStyles() {
     let styles = {
-      //'background-color' : this.color_var,
       'left': `${this.left_pos}px`,
       'top': `${this.top_pos + this.oscilation}px`,
       'transform': `scaleX(${this.direction}`,
-      'width': `${this.width}px`
+      'width': `${this.width}px`,
+      'height': `${this.height}px`
     };
 
     return styles;
