@@ -1,1 +1,2 @@
-<img src="/assets/yellow_fish.png" class="fish" [ngStyle]="updateStyles()">
+<img *ngIf="_fish_type == 1" src="/assets/yellow_fish.png" class="fish" [ngStyle]="updateStyles()">
+<img *ngIf="_fish_type == 2" src="/assets/green_fish.png" class="fish" [ngStyle]="updateStyles()">

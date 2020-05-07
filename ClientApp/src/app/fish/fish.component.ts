@@ -12,7 +12,10 @@ export class FishComponent implements OnInit {
 
   @Input() left_pos: number;
   @Input() top_pos: number;
-  idle_depth:number;
+  @Input() idle_depth: number; //this is the depth that an idle fish will travel to
+  @Input() fish_type: number;
+  _fish_type: number;
+  
   direction: number;
   frame_count: number; //memory leek issue??
   oscilation: number;
@@ -37,7 +40,7 @@ export class FishComponent implements OnInit {
   @Input() events: Observable<number[]>;
 
   ngOnInit() {
-    this.idle_depth = this.left_pos; //this is the depth that an idle fish will travel to
+    this._fish_type = this.fish_type;
     this.speed = Math.random()*2+2;
     this.vigorous_speed = Math.random()*3+5;
     this.has_target = false;
@@ -106,9 +109,9 @@ export class FishComponent implements OnInit {
     }
 
     if( this.top_pos < this.idle_depth - 10){
-      this.top_pos += this.speed/4;
+      this.top_pos += this.speed/2;
     }else if(this.top_pos > this.idle_depth + 10){
-      this.top_pos -= this.speed/4;
+      this.top_pos -= this.speed/2;
     }
   }
 

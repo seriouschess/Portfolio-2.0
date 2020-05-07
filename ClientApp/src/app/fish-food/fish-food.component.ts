@@ -11,7 +11,14 @@ export class FishFoodComponent implements OnInit {
   left_pos:number;
   top_pos:number;
 
-  @Input() hide_food:boolean;
+  private hide_food:boolean;
+  @Input() 
+  set hideFood( value:boolean ){
+    this.hide_food = value;
+    if(this.hide_food){
+      this.hide();
+    }
+  }
 
   private eventsSubscription: Subscription;
 
@@ -20,19 +27,10 @@ export class FishFoodComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("me");
-    this.left_pos = 500;
-    this.top_pos = 500;
+    this.hide();
+    this.top_pos = 0;
     this.eventsSubscription = this.events.subscribe((f_loc:number[]) => this.place(f_loc));
-    this.update();
-  }
-
-  update(){
-    setInterval(() => {
-      if(this.hide_food){
-        this.hide();
-      }
-    },50);
+    this.updateStyles();
   }
 
 
@@ -42,7 +40,6 @@ export class FishFoodComponent implements OnInit {
   }
 
   place(f_loc: number[]): void {
-    console.log("doe");
     this.left_pos = f_loc[0];
     this.top_pos = f_loc[1]; 
   }
@@ -52,7 +49,6 @@ export class FishFoodComponent implements OnInit {
   }
 
   updateStyles(){
-    console.log("ray");
     let styles = {
       'left': `${this.left_pos}px`,
       'top': `${this.top_pos}px`

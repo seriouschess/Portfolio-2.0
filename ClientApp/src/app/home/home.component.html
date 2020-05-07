@@ -1,3 +1,5 @@
-<p>Home Page</p>
-<app-tank></app-tank>
+<div class="space">
+    <app-sky [sky_height]="sky_height" *ngIf="!sky_done" (imGone)="isSkyDone($event)"></app-sky>
+    <app-tank [sky_height]="sky_height"></app-tank>
+</div>
 

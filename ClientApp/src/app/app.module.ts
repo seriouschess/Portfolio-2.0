@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { FishComponent } from './fish/fish.component';
 import { TankComponent } from './tank/tank.component';
 import { FishFoodComponent } from './fish-food/fish-food.component';
+import { SkyComponent } from './sky/sky.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FishFoodComponent } from './fish-food/fish-food.component';
     FetchDataComponent,
     FishComponent,
     TankComponent,
-    FishFoodComponent
+    FishFoodComponent,
+    SkyComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
