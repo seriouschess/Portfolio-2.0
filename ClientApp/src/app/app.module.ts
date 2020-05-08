@@ -13,6 +13,7 @@ import { FishComponent } from './fish/fish.component';
 import { TankComponent } from './tank/tank.component';
 import { FishFoodComponent } from './fish-food/fish-food.component';
 import { SkyComponent } from './sky/sky.component';
+import { RainDropComponent } from './rain-drop/rain-drop.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SkyComponent } from './sky/sky.component';
     FishComponent,
     TankComponent,
     FishFoodComponent,
-    SkyComponent
+    SkyComponent,
+    RainDropComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

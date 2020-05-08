@@ -10,9 +10,11 @@ export class HomeComponent implements OnInit {
   constructor(private element:ElementRef){ }
   sky_done:boolean;
   sky_height: number;
+  width:number; //home component width
 
   ngOnInit(){
     this.sky_done = false;
+    this.width = this.element.nativeElement.offsetWidth;
     this.sky_height = this.determineSkyHeight();
   }
 
@@ -21,10 +23,9 @@ export class HomeComponent implements OnInit {
   }
 
   determineSkyHeight():number{
-    let width = this.element.nativeElement.offsetWidth;
-    if(width > 1080){
+    if(this.width > 1080){
       return 700;
-    }else if(width > 700){
+    }else if(this.width > 700){
       return 500;
     }else{
       return 480;

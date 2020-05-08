@@ -1,0 +1,6 @@
+.rain-drop{
+    background: url("/assets/rain_drop.png");
+    position:absolute;
+    height: 87px;
+    width: 29px;
+}

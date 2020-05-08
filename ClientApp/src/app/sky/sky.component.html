@@ -1,1 +1,8 @@
-<div class="sky" [ngStyle]="updateStyles()"></div>
+<div class="sky" [ngStyle]="updateStyles()">
+    <div *ngIf="sky_height > 300" class="storm-cloud"></div>
+    <div class="water-surface"></div>
+    <div *ngFor="let drop_pos of rain_drop_location_array">
+        <app-rain-drop [sky_height]="sky_height" [starting_left]="drop_pos"></app-rain-drop>
+    </div>
+</div>
+

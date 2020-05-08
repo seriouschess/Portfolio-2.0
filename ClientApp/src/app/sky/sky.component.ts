@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-sky',
@@ -7,13 +7,27 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class SkyComponent implements OnInit {
 
-  constructor( ) { }
+
 
   pool_rate: number; //How fast the sky disappears
   @Output() imGone = new EventEmitter<boolean>();
   @Input() sky_height: number;
+  rain_drop_location_array:number[];
+  @Input() sky_width:number;
+
+  constructor( ) { }
 
   ngOnInit() {
+    let fifth_section = Math.floor(this.sky_width/5);
+
+    this.rain_drop_location_array = [ 
+      fifth_section,
+      2*fifth_section,
+      3*fifth_section,
+      4*fifth_section,
+      5*fifth_section,
+    ];
+    console.log(this.rain_drop_location_array);
     this.determinePoolRate();
     this.update();
   }
