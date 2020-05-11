@@ -93,11 +93,11 @@ export class FishComponent implements OnInit {
     }
 
     if( this.top_pos > this.target_top ){
-      this.top_pos -= this.speed;
+      this.top_pos -= this.vigorous_speed;
     }
     
     if( this.top_pos < this.target_top ){
-      this.top_pos += this.speed;
+      this.top_pos += this.vigorous_speed;
     }
   }
 
