@@ -15,9 +15,12 @@ export class SkyComponent implements OnInit {
   rain_drop_location_array:number[];
   @Input() sky_width:number;
 
+  pool_acceleration;
+
   constructor( ) { }
 
   ngOnInit() {
+    this.pool_acceleration = 1;
     let fifth_section = Math.floor(this.sky_width/5);
 
     this.rain_drop_location_array = [ 
@@ -34,10 +37,15 @@ export class SkyComponent implements OnInit {
 
   update(){
     setInterval(() => {
-      if( this.sky_height > 0 ){
+      if(this.sky_height > 250){
         this.sky_height -= this.pool_rate;
       }else{
-        this.imGone.emit(true);
+        if( this.sky_height > 0 ){
+          this.pool_acceleration += 0.08;
+          this.sky_height -= this.pool_rate*this.pool_acceleration;
+        }else{
+          this.imGone.emit(true);
+        }
       }
     },60);
    }

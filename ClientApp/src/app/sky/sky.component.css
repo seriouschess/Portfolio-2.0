@@ -1,7 +1,10 @@
 .sky{
-    background-color: rgb(179, 236, 231);
+    /* background-color: rgb(179, 236, 231); */
     width: 100%;
     position: relative;
+    background-image: url("/assets/clouds.png");
+    background-repeat: repeat-y;
+    background-size: 100% auto;
 }
 
 .water-surface{

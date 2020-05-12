@@ -78,7 +78,10 @@ export class FishComponent implements OnInit {
   seeFood(f_loc){
     this.target_top = f_loc[1];
     this.target_left = f_loc[0];
-    this.has_target = true;
+    let dist:number = this.targetDistance(this.left_pos, this.top_pos, this.target_left, this.target_top);
+    if(this.fish_type != 10 && dist < 1500){
+      this.has_target = true;
+    }
   }
 
   targetDistance(x1:number, y1:number, x2:number, y2:number){
@@ -180,11 +183,11 @@ export class FishComponent implements OnInit {
 
     var x = event.x;
     var y = event.y;
-    var offsetX = event.offsetX;
-    var offsetY = event.offsetY;
+    var pageX = event.pageX;
+    var pageY = event.pageY;
 
     //mouse data
-    console.log(event, x, y, offsetX, offsetY);
+    console.log(event, x, y, pageX, pageY);
   };
 }
 

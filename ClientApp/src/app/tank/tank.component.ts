@@ -15,17 +15,16 @@ export class TankComponent implements OnInit {
   eventsSubject: Subject<number[]> = new Subject<number[]>();
   tank_width: number;
   tank_height: number;
-  fish_starting_depth:number;
   number_of_fish_types: number;
   all_fish: fish[];
 
   constructor(private element:ElementRef) { }
 
   ngOnInit() {
-    this.number_of_fish_types = 2;
+    this.number_of_fish_types = 4; //types 1, 2, 3 or 4
     this.tank_width = this.element.nativeElement.offsetWidth;
-    this.fish_starting_depth = this.sky_height + Math.floor(Math.random()*50);
-    console.log("Starting Depth: " + this.fish_starting_depth);
+    this.tank_height = this.element.nativeElement.offsetHeight; //used to pace fish
+    console.log("Height: "+this.element.nativeElement.offsetHeight);
     this.food_out = false;
     this.createFish(); 
     this.update();
@@ -44,8 +43,8 @@ export class TankComponent implements OnInit {
     // var offsetY = event.offsetY;
     // console.log(event, x, y, offsetX, offsetY);
     this.food_out = true;
-    this.food_top = event.x;
-    this.food_left = event.y;
+    this.food_top = event.pageX;
+    this.food_left = event.pageY;
     this.emitEventToChild(this.food_top, this.food_left);
   }
 
@@ -53,21 +52,73 @@ export class TankComponent implements OnInit {
     this.food_out = false;
   }
 
+  decideType(){
+    let rand = Math.floor( Math.random()*100);
+    console.log("fish");
+    if( rand%30 == 0 ){
+      console.log("random number: "+rand);
+      return 3;
+    }else if( rand%5 == 0 ){
+      return 4;
+    }else if( rand%3 == 0){
+      return 2;
+    }else{
+      return 1;
+    }
+  }
+
   createFish(){
     this.all_fish = [];
-    for(let x=0; x < 5; x++){
+    let h = this.sky_height;
+    for(let x=0; x < 3; x++){ //create top cluster
       let fish:fish = {
-        starting_depth: this.sky_height + Math.floor(Math.random()*50),
-        starting_left: Math.floor(Math.random()*(this.tank_width-100)+50),
-        idle_depth: Math.floor(Math.random()*400) + x*Math.floor(Math.random()*100),
-        type: Math.floor(Math.random()*this.number_of_fish_types + 1)
+        starting_depth: h + 250 + Math.floor( Math.random()*50 ),
+        starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
+        idle_depth: 100 + Math.floor(Math.random()*100 ),
+        type: this.decideType()//Math.floor(Math.random()*this.number_of_fish_types + 1)
       }
       this.all_fish.push(fish);
     }
+
+    for(let x=0; x < 3; x++){ //create middle cluster
+      let set_depth = 1000 + Math.floor( Math.random()*300 );
+      let fish:fish = {
+        starting_depth: h + set_depth,
+        starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
+        idle_depth: set_depth,
+        type: this.decideType()
+      }
+      this.all_fish.push(fish);
+    }
+
+    for(let x=0; x < 8; x++){ //random roaming fish
+      let set_depth = 200 + Math.floor( Math.random()*(this.tank_height-h) );
+      let fish:fish = {
+        starting_depth: h + set_depth,
+        starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
+        idle_depth: set_depth,
+        type: this.decideType()
+      }
+      this.all_fish.push(fish);
+    }
+
+
+
+    let fish:fish = { //create angler fish
+      starting_depth: h + this.tank_height - 500,
+      starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
+      idle_depth: this.tank_height - 160,
+      type: 10
+    }
+    this.all_fish.push(fish);
   }
 
   emitEventToChild(x:number, y:number) {
     this.eventsSubject.next([x,y]);
+  }
+
+  openLink(link:string){
+    window.open(link, "_blank");
   }
 }
 
