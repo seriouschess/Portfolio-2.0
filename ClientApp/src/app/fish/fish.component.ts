@@ -64,10 +64,8 @@ export class FishComponent implements OnInit {
 
     if(this.tank_width > 1079){
       size = 80 + Math.floor(Math.random()*40);
-    }else if( this.tank_width > 599 ){
-      size = 60 + Math.floor(Math.random()*30);
     }else{
-      size = 40 + Math.floor(Math.random()*20);
+      size = 60 + Math.floor(Math.random()*30);
     }
 
     this.size = size;

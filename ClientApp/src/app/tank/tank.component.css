@@ -7,6 +7,10 @@
     background-size: auto 100%;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .content-element{
     z-index: 1;
     padding-top: 2%;
@@ -30,7 +34,7 @@
 }
 
 .content-element h3, p, img{
-    background: rgba(0, 165, 77, 0.75);
+    background: rgba(0, 165, 77, 0.85);
     border-radius: 5px;
     display: inline-block;
     padding: 1%;
@@ -75,10 +79,20 @@
 .footer{
     width: 80%;
     display: block;
-    margin-top: 5%;
+    margin-top: 500px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0px;
+}
+
+.page-bottom{
+    margin-top: 500px;
+    visibility: hidden;
+}
+
+.page-top{
+    margin-bottom: 50px;
+    visibility: hidden;
 }
 
 
@@ -93,10 +107,6 @@
         background-repeat: repeat;
     }
 
-    .footer{
-        margin-top: 80%;
-    }
-
     .contact-element{
         display: block;
         margin-left: auto;
@@ -104,6 +114,11 @@
         margin-top: 1%;
         margin-bottom: 0px;
         text-align: center;
+    }
+
+    .page-bottom{
+        margin-top: 500px;
+        visibility: hidden;
     }
   }
 
@@ -122,6 +137,10 @@
         width: 80%;
     }
 
+    .page-bottom{
+        margin-top: 700px;
+        visibility: hidden;
+    }
   }
 
 

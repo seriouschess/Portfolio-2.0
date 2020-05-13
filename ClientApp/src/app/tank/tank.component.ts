@@ -43,8 +43,8 @@ export class TankComponent implements OnInit {
     // var offsetY = event.offsetY;
     // console.log(event, x, y, offsetX, offsetY);
     this.food_out = true;
-    this.food_top = event.pageX;
-    this.food_left = event.pageY;
+    this.food_top = event.pageX-15; //adjust for food image
+    this.food_left = event.pageY-25;
     this.emitEventToChild(this.food_top, this.food_left);
   }
 
@@ -54,15 +54,13 @@ export class TankComponent implements OnInit {
 
   decideType(){
     let rand = Math.floor( Math.random()*100);
-    console.log("fish");
-    if( rand%30 == 0 ){
-      console.log("random number: "+rand);
+    if( rand%20 == 0 ){ //angel fish
       return 3;
-    }else if( rand%5 == 0 ){
+    }else if( rand%12 == 0 ){ //butterfly fish
       return 4;
-    }else if( rand%3 == 0){
+    }else if( rand%5 == 0){ //disk fish
       return 2;
-    }else{
+    }else{ //yellow fish
       return 1;
     }
   }
@@ -75,13 +73,13 @@ export class TankComponent implements OnInit {
         starting_depth: h + 250 + Math.floor( Math.random()*50 ),
         starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
         idle_depth: 100 + Math.floor(Math.random()*100 ),
-        type: this.decideType()//Math.floor(Math.random()*this.number_of_fish_types + 1)
+        type: this.decideType()
       }
       this.all_fish.push(fish);
     }
 
     for(let x=0; x < 3; x++){ //create middle cluster
-      let set_depth = 1000 + Math.floor( Math.random()*300 );
+      let set_depth = 1050 + Math.floor( Math.random()*300 );
       let fish:fish = {
         starting_depth: h + set_depth,
         starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
@@ -92,7 +90,7 @@ export class TankComponent implements OnInit {
     }
 
     for(let x=0; x < 8; x++){ //random roaming fish
-      let set_depth = 200 + Math.floor( Math.random()*(this.tank_height-h) );
+      let set_depth = 200 + Math.floor( Math.random()*(this.tank_height-h - 600) );
       let fish:fish = {
         starting_depth: h + set_depth,
         starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
@@ -102,15 +100,15 @@ export class TankComponent implements OnInit {
       this.all_fish.push(fish);
     }
 
-
-
-    let fish:fish = { //create angler fish
-      starting_depth: h + this.tank_height - 500,
-      starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
-      idle_depth: this.tank_height - 160,
-      type: 10
+    if(this.tank_width < 3000){
+      let fish:fish = { //create angler fish
+        starting_depth: h + this.tank_height - 500,
+        starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
+        idle_depth: this.tank_height - 750,
+        type: 10
+      }
+      this.all_fish.push(fish);
     }
-    this.all_fish.push(fish);
   }
 
   emitEventToChild(x:number, y:number) {
