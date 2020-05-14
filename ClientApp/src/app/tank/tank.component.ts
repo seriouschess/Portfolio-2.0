@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -18,13 +19,14 @@ export class TankComponent implements OnInit {
   number_of_fish_types: number;
   all_fish: fish[];
 
-  constructor(private element:ElementRef) { }
+  constructor( @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit() {
     this.number_of_fish_types = 4; //types 1, 2, 3 or 4
-    this.tank_width = this.element.nativeElement.offsetWidth;
-    this.tank_height = this.element.nativeElement.offsetHeight; //used to pace fish
-    console.log("Height: "+this.element.nativeElement.offsetHeight);
+    this.tank_width = this.document.getElementById("TANK").offsetWidth;
+    this.tank_height = this.document.getElementById("TANK").offsetHeight; //used to pace fish
+    console.log("Tank Height: "+ this.document.getElementById("TANK").offsetHeight);
+    console.log("Tank Width: "+ this.document.getElementById("TANK").offsetWidth);
     this.food_out = false;
     this.createFish(); 
     this.update();
@@ -32,7 +34,7 @@ export class TankComponent implements OnInit {
 
    update(){
     setInterval(() => {
-      this.tank_width = this.element.nativeElement.offsetWidth;
+      this.tank_width = this.document.getElementById("TANK").offsetWidth;
     },5000);
    }
 
@@ -72,7 +74,7 @@ export class TankComponent implements OnInit {
       let fish:fish = {
         starting_depth: h + 250 + Math.floor( Math.random()*50 ),
         starting_left: Math.floor( Math.random()*(this.tank_width-100)+50 ),
-        idle_depth: 100 + Math.floor(Math.random()*100 ),
+        idle_depth: 200 + Math.floor(Math.random()*100 ),
         type: this.decideType()
       }
       this.all_fish.push(fish);

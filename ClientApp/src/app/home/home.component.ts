@@ -1,4 +1,5 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -7,14 +8,14 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private element:ElementRef){ }
+  constructor( @Inject(DOCUMENT) private document: Document){ }
   sky_done:boolean;
   sky_height: number;
   width:number; //home component width
 
   ngOnInit(){
     this.sky_done = false;
-    this.width = this.element.nativeElement.offsetWidth;
+    this.width = this.document.getElementById("SPACE").offsetWidth;
     this.sky_height = this.determineSkyHeight();
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sky',
@@ -7,19 +7,19 @@ import { Component, OnInit, Output, EventEmitter, Input, ElementRef } from '@ang
 })
 export class SkyComponent implements OnInit {
 
-
-
   pool_rate: number; //How fast the sky disappears
   @Output() imGone = new EventEmitter<boolean>();
   @Input() sky_height: number;
   rain_drop_location_array:number[];
   @Input() sky_width:number;
-
-  pool_acceleration;
+  
+  starting_height:number;
+  pool_acceleration:number;
 
   constructor( ) { }
 
   ngOnInit() {
+    this.starting_height = this.sky_height;
     this.pool_acceleration = 1;
     let fifth_section = Math.floor(this.sky_width/5);
 
@@ -37,6 +37,9 @@ export class SkyComponent implements OnInit {
 
   update(){
     setInterval(() => {
+      if(this.sky_height > this.starting_height*0.95){
+        window.scrollTo(0,0); //because chrome
+      }
       if(this.sky_height > 250){
         this.sky_height -= this.pool_rate;
       }else{
