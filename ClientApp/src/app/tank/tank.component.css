@@ -1,10 +1,13 @@
 .tank{
-    /* background-color: rgb(99, 153, 214); */
     width: 100%;
     z-index: -2;
     background-image: url("/assets/water.jpg");
     background-repeat: no-repeat;
     background-size: auto 100%;
+}
+
+.header-mask{
+    background-color: rgba(57, 123, 189, 0.2);
 }
 
 ul {
@@ -21,23 +24,51 @@ ul {
     position: relative;
 }
 
-.kelp-one{
+.kelp-one::before{
+    
     background-image: url("/assets/aquatic_plants.png");
     background-repeat: no-repeat;
+    content: "";
+    background-size: cover;
     background-size: 100% 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity:0.6;
 }
 
-.kelp-two{
+.kelp-one *{
+    position:relative;
+}
+
+.kelp-two::before{
+    
     background-image: url("/assets/aquatic_plants_two.png");
     background-repeat: no-repeat;
+    content: "";
+    background-size: cover;
     background-size: 100% 100%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity:0.6;
 }
 
+.kelp-two *{
+    position:relative;
+}
+
+
 .content-element h3, p, img{
-    background: rgba(0, 165, 77, 0.85);
+    background: rgb(58, 184, 117);
     border-radius: 5px;
     display: inline-block;
     padding: 1%;
+    margin-left: 10px;
 }
 
 .content-block{
@@ -105,6 +136,21 @@ ul {
     .kelp-one{
         background-size: 100% 50%;
         background-repeat: repeat;
+        margin-top: 200px;
+    }
+
+    .kelp-two{
+        background-size: 100% 50%;
+        background-repeat: repeat;
+        margin-top: 150px;
+    }
+
+    .kelp-one h3{
+        font-size: 22px;
+    }
+
+    .kelp-two h3{
+        font-size: 22px;
     }
 
     .contact-element{
@@ -119,6 +165,10 @@ ul {
     .page-bottom{
         margin-top: 500px;
         visibility: hidden;
+    }
+
+    .footer{
+        margin-top: 200px;
     }
   }
 
