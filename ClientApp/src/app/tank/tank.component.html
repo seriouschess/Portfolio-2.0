@@ -15,26 +15,24 @@
             Though originally implemented to allow small companies to maintain their own website over time without a software team,
           the codebase can be used to allow content creators easier access to site-building. </p><br>
         <ul>
-          <li><p>Tech: Angular Frontend with ASP.NET Core API and MySQL database</p></li>
+          <li><p>Tech: Angular Frontend with ASP.NET Core API and PostgreSQL database</p></li>
           <li><p>Intended to be an easily acessable website creator for the general public.</p></li>
           <li><p>Built with modularity and scalability in mind.</p></li>
         </ul>
         <p class="buffer"> See the code on Github: <button class="btn btn-success" (click)="openLink('https://www.github.com/seriouschess/dynamify')">here</button></p>
     </div>
 
-    <div class="content-element kelp-two content-block">
-      <h3>RelayForJustice</h3>
-      <p>Deployed at <button class="btn btn-success" (click)="openLink('https://relayforjustice.com/')">relayforjustice.org</button></p>
+    <div class="content-element kelp-two content-block buffer">
+      <h3>Air Traffic Noise Tracker - Relativity Capstone Project</h3>
+      <div><h3 class="buffer"> Deployed on Azure: <button class="btn btn-success" (click)="openLink('https://airnoisetracker.professionalserver.net/')">See the Site</button></h3></div>
       <div>
-        <img class="proj-img" src="assets/relayforjustice.png">
+        <img class="proj-img" src="/assets/airnoisetracker.png">
+        <p class="project-description"> Search any airport in the world and get information on which direction airplanes will be taking off that day based on the local weather and runway information.</p>
       </div>
-      <p class="buffer">A fundraiser project for the organization Legal Aid Chicago where users pledge miles which contribute to a collective goal.</p>
-      <p>This project was made with a team of several people. Role: Created a fully functional backend API with Fluent Validation and security.</p>
-      <ul>
-        <li><p>Tech: React Frontend with ASP.NET Core API and MySQL database</p></li>
-        <p> Hosting: AWS, Ubuntu, Linux </p>
-      </ul>
-      <p class="buffer"> See the API code on Github: <button class="btn btn-success" (click)="openLink('https://github.com/adion81/RelayForJusticeServer')">here</button></p>
+        <div class="buffer">
+          <p>Tech: ASP.NET Core API with Angular and MsSql database, originally deployed from an Azure pipeline.</p>
+          <div><p> See the code on github <button class="btn btn-success" (click)="openLink('https://github.com/seriouschess/AirTrafficReporter')">here</button></p></div>
+        </div>
     </div>
 
     <div class="content-element kelp-one content-block buffer">
@@ -48,16 +46,30 @@
       <h3 class="center"> I have previously worked with the following technologies: </h3>
       <p> Languages: C#, JavaScript, TypeScript, Python </p>
       <p> Frameworks: Angular, ASP.NET Core, NodeJS, Django, Flask, Entity Framework ORM, Mongoose </p>
-      <p> Databases: MySQL, SQLite, MongoDB </p>
-      <p> Hosting: AWS, Ubuntu, Linux </p>
+      <p> Databases: MySQL, PostgreSQL, MongoDB </p>
+      <p> Hosting: AWS, Azure Devops, Linux, Nginx  </p>
       <p>Click anywhere on the water to feed the fish.</p>
     </div>
 
     <h1 class="text-center"> Other Projects Created </h1>
 
+    <div class="content-element kelp-two content-block">
+      <h3>RelayForJustice</h3>
+      <p>Deployed at <button class="btn btn-success" (click)="openLink('https://relayforjustice.com/')">relayforjustice.org</button></p>
+      <div>
+        <img class="proj-img" src="assets/relayforjustice.png">
+      </div>
+      <p class="buffer">A fundraiser project for the organization Legal Aid Chicago where users pledge miles which contribute to a collective goal.</p>
+      <p>This project was made with a team of several people. Role: Created a fully functional backend API with Fluent Validation and authentication protocols.</p>
+      <ul>
+        <li><p>Tech: React Frontend with ASP.NET Core API and MySQL database</p></li>
+        <p> Hosting: AWS, Ubuntu, Linux </p>
+      </ul>
+      <p class="buffer"> See the API code on Github: <button class="btn btn-success" (click)="openLink('https://github.com/adion81/RelayForJusticeServer')">here</button></p>
+    </div>
+
     <div class="content-element kelp-one content-block buffer">
     <h3>Modern Cave People</h3>
-    <div><h3 class="buffer"> Deployed on AWS: <button class="btn btn-success" (click)="openLink('http://draw.professionalserver.net/')">See the Site</button></h3></div>
     <div>
         <img class="proj-img" src="assets/moderncavepeople.png">
         <p class="project-description"> A CRUD application which allows users to create and edit images, then display them using HTML canvas. Drawing tools were created in the project's code.</p>
@@ -66,19 +78,6 @@
         <p>Tech: Angular frontend with NodeJS Express API and MongoDB</p>
         <div><p> See the code on Github <button class="btn btn-success" (click)="openLink('https://github.com/seriouschess/ModernCavePeople')">here</button></p></div>
       </div>
-    </div>
-
-    <div class="content-element kelp-one content-block buffer">
-      <h3>Air Traffic Noise Tracker - Relativity Capstone Project</h3>
-      <div><h3 class="buffer"> Deployed on Azure: <button class="btn btn-success" (click)="openLink('https://airnoisetracker.professionalserver.net/')">See the Site</button></h3></div>
-      <div>
-        <img class="proj-img" src="/assets/airnoisetracker.png">
-        <p class="project-description"> Search any airport in the world and get information on which direction airplanes will be taking off that day based on the local weather.</p>
-      </div>
-        <div class="buffer">
-          <p>Tech: ASP.NET Core API with Angular, originally deployed from an Azure pipeline.</p>
-          <div><p> See the code on github <button class="btn btn-success" (click)="openLink('https://github.com/seriouschess/AirTrafficReporter')">here</button></p></div>
-        </div>
     </div>
 
     <!-- <div class="content-element kelp-one content-block buffer">
